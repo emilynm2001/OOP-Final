@@ -6,8 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import Frames.*;
+// import javafx.scene.layout.HBox;
+// import Frames.*;
 
 public class AddNote extends AnchorPane {
     AnchorPane enterFileName = new AnchorPane();
@@ -48,12 +48,21 @@ public class AddNote extends AnchorPane {
 
     public void onClick() {
         saveButton.setOnMouseReleased(event -> {
-
+            CreateNote newNote = new CreateNote(this.getFileName(), this.getNoteText());
+            addNoteToHash(newNote);
         });
     }
 
     public String getFileName() {
         return fileName.getText();
+    }
+
+    public void addNoteToHash(CreateNote note) {
+
+    }
+
+    public String getNoteText() {
+        return note.getText();
     }
 
     public Button getSaveButton() {
