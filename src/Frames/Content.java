@@ -45,8 +45,15 @@ public class Content {
             return addNoteView;
         }
         if (state.equals("ViewNote_View")) {
-            if (!(addNoteView.getNoteNames().isEmpty()))
-                viewNoteView.noteSpecifier(this.sMenu.getHashKey(), addNoteView.getCreateNote());
+            if (!(addNoteView.getNoteNames().isEmpty())) {
+                System.out.println("**********************" + this.sMenu.getHashKey().equals(""));
+                if (this.sMenu.getHashKey().equals("")) {
+                    viewNoteView.noteSelectPrompt();
+                } else {
+                    viewNoteView.noteSpecifier(this.sMenu.getHashKey(), addNoteView.getCreateNote());
+                    System.out.println("Viewing Note titled: " + this.sMenu.getHashKey());
+                }
+            }
             return viewNoteView;
         }
         if (state.equals("HomePage_View")) {

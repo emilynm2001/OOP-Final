@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class CreateNote {
     public String NoteName;
     private boolean success;
-    final HashMap<String, String> notes = new HashMap<>();
+    final static HashMap<String, String> notes = new HashMap<>();
 
     public CreateNote(String fn, String txt) {
         createNewFile(fn, txt);
@@ -19,7 +19,7 @@ public class CreateNote {
     }
 
     public HashMap<String, String> getHashMap() {
-        return this.notes;
+        return notes;
     }
 
     public boolean isSuccessful() {

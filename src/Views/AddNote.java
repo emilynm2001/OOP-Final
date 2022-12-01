@@ -74,11 +74,15 @@ public class AddNote extends AnchorPane {
         saveButton.setMinSize(100, 30);
         saveButton.setText("Save");
         saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
+
         saveButton.setOnMouseEntered(e -> {
             saveButton.setStyle("-fx-background-color: #FFEFD4; -fx-text-fill: #3D5453;");
         });
         saveButton.setOnMouseExited(e -> {
             saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
+        });
+        saveButton.setOnMouseClicked(e -> {
+            NotedFrame.getMainPane().getState(0);
         });
 
         cancelButton.setMinSize(100, 30);
@@ -102,13 +106,15 @@ public class AddNote extends AnchorPane {
     }
 
     public void onClick() {
-        newNote = new CreateNote(this.getFileName(), this.getNoteText());
-        if (newNote.isSuccessful())
-            NoteNames.add(this.getFileName());
-        for (int i = 0; i < NoteNames.size(); i++) {
-            System.out.println("ArrayList: " + i + NoteNames.get(i));
+        if (!this.getFileName().equals("")) {
+            newNote = new CreateNote(this.getFileName(), this.getNoteText());
+            if (newNote.isSuccessful())
+                NoteNames.add(this.getFileName());
+            for (int i = 0; i < NoteNames.size(); i++) {
+                System.out.println("ArrayList: " + i + NoteNames.get(i));
+            }
+            System.out.println("ADDNOTE");
         }
-        System.out.println("ADDNOTE");
 
     }
 

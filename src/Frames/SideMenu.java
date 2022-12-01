@@ -71,8 +71,7 @@ public class SideMenu extends VBox {
         for (int i = 0; i < noteNames.size(); i++) {
             if (noteNames.size() > this.names.size()) {
                 if (i == (noteNames.size() - 1)) {
-                    if (getChildren().contains(defaultBox))
-                        getChildren().remove(defaultBox);
+                    getChildren().remove(defaultBox);
                     this.names.add(noteNames.get(i));
                     System.out.print(noteNames.get(i));
                     String fn = noteNames.get(i);
@@ -102,8 +101,8 @@ public class SideMenu extends VBox {
                                 "-fx-font-size: 15px; -fx-font-family: monospace; -fx-padding: 5; -fx-text-fill: white;");
                     });
                     noteBox.setOnMouseClicked(e -> {
-                        NotedFrame.getMainPane().getState(2);
                         setHashKey(fn);
+                        NotedFrame.getMainPane().getState(2);
                     });
                 }
             }

@@ -5,15 +5,16 @@ import NoteCreation.CreateNote;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
 public class ViewNote extends AnchorPane {
     private AnchorPane mainContainer, bottomContainer;
-    // private HBox mainBox, bottomBox, defaultBox;
-    private HBox defaultBox;
+    private HBox mainBox, promptBox, defaultBox;
     private Button editButton, cancelButton, deleteNoteButton;
-    private Label defaultLbl;
+    private Label defaultLbl, titleLbl, promptLbl;
+    private TextArea noteTA;
 
     public ViewNote() {
         bottomContainer = new AnchorPane();
@@ -23,15 +24,19 @@ public class ViewNote extends AnchorPane {
         deleteNoteButton = new Button();
         defaultBox = new HBox();
         defaultLbl = new Label();
+        mainBox = new HBox();
+        titleLbl = new Label();
+        noteTA = new TextArea();
+        promptLbl = new Label();
+        promptBox = new HBox();
 
         // welcome = new Label("VIEW PAGE");
-        mainContainer();
+        defaultMessage();
         getChildren().addAll(mainContainer, bottom());
 
     }
 
     private void mainContainer() {
-        defaultMessage();
         setTopAnchor(mainContainer, 0.0);
         setBottomAnchor(mainContainer, 0.0);
         setRightAnchor(mainContainer, 0.0);
@@ -40,18 +45,36 @@ public class ViewNote extends AnchorPane {
     }
 
     private void defaultMessage() {
+        reset();
+
         defaultLbl.setText("You have no Notes!");
         defaultLbl.setStyle(
                 "-fx-font-size: 40px; -fx-font-family: monospace; -fx-text-fill: gray;");
 
         defaultBox.getChildren().add(defaultLbl);
         defaultBox.setAlignment(Pos.CENTER);
-        getChildren().add(defaultBox);
         mainContainer.getChildren().add(defaultBox);
         AnchorPane.setTopAnchor(defaultBox, 250.0);
         AnchorPane.setBottomAnchor(defaultBox, 600.0);
         AnchorPane.setRightAnchor(defaultBox, 10.0);
         AnchorPane.setLeftAnchor(defaultBox, 10.0);
+        mainContainer();
+    }
+
+    public void noteSelectPrompt() {
+        reset();
+        promptLbl.setText("Select a note!");
+        promptLbl.setStyle(
+                "-fx-font-size: 40px; -fx-font-family: monospace; -fx-text-fill: gray;");
+
+        promptBox.getChildren().add(promptLbl);
+        promptBox.setAlignment(Pos.CENTER);
+        mainContainer.getChildren().add(promptBox);
+        AnchorPane.setTopAnchor(promptBox, 250.0);
+        AnchorPane.setBottomAnchor(promptBox, 600.0);
+        AnchorPane.setRightAnchor(promptBox, 10.0);
+        AnchorPane.setLeftAnchor(promptBox, 10.0);
+        mainContainer();
     }
 
     public void noteSpecifier(String key, CreateNote cNote) {
@@ -63,7 +86,43 @@ public class ViewNote extends AnchorPane {
     }
 
     private void addNoteToView(String key, String note) {
-        // mainBox
+        reset();
+
+        titleLbl.setText(key);
+        titleLbl.setStyle("-fx-font-size: 20px; -fx-text-fill: gray;");
+        mainBox.setAlignment(Pos.CENTER_LEFT);
+        mainBox.getChildren().add(titleLbl);
+        mainBox.setStyle("");
+        noteTA.setEditable(false);
+        noteTA.setText(note);
+        noteTA.setWrapText(true);
+        noteTA.setStyle(" -fx-focus-color: transparent; -fx-control-inner-background: #FFEFD4; -fx-border: gone;");
+        noteTA.setFocusTraversable(false);
+        mainContainer.getChildren().addAll(mainBox, noteTA);
+        AnchorPane.setTopAnchor(mainBox, 0.0);
+        AnchorPane.setBottomAnchor(mainBox, 900.0);
+        AnchorPane.setRightAnchor(mainBox, 10.0);
+        AnchorPane.setLeftAnchor(mainBox, 10.0);
+
+        AnchorPane.setTopAnchor(noteTA, 100.0);
+        AnchorPane.setBottomAnchor(noteTA, 500.0);
+        AnchorPane.setRightAnchor(noteTA, 10.0);
+        AnchorPane.setLeftAnchor(noteTA, 10.0);
+
+        mainContainer();
+    }
+
+    private void reset() {
+        mainContainer.getChildren().remove(mainBox);
+        mainContainer.getChildren().remove(noteTA);
+        mainContainer.getChildren().remove(defaultBox);
+        mainContainer.getChildren().remove(promptBox);
+
+        mainBox.getChildren().remove(titleLbl);
+        noteTA.setText("");
+        promptBox.getChildren().remove(promptLbl);
+        defaultBox.getChildren().remove(defaultLbl);
+
     }
 
     private AnchorPane bottom() {
