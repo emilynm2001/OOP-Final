@@ -2,28 +2,34 @@ package Views;
 
 import Frames.NotedFrame;
 import NoteCreation.CreateNote;
+import NoteCreation.SaveEdittedNote;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
-public class ViewNote extends AnchorPane {
+public class EditNote extends AnchorPane {
     private AnchorPane mainContainer, bottomContainer;
-    private HBox mainBox, promptBox, defaultBox;
-    private Button editButton, cancelButton, deleteNoteButton;
-    private Label defaultLbl, titleLbl, promptLbl;
+    private HBox mainBox, promptBox, defaultBox, highlightBox, yellowBox, blueBox, redBox, greenBox;
+    private Button saveButton, cancelButton;
+    private Label defaultLbl, titleLbl, promptLbl, yellow, blue, red, green;
     private TextArea noteTA;
+    private SaveEdittedNote editNote;
     private String currKey, currNote;
+    private Image img;
+    private ImageView imageView;
     private CreateNote cNote;
 
-    public ViewNote() {
+    public EditNote() {
         bottomContainer = new AnchorPane();
         mainContainer = new AnchorPane();
         cancelButton = new Button();
-        editButton = new Button();
-        deleteNoteButton = new Button();
+        saveButton = new Button();
         defaultBox = new HBox();
         defaultLbl = new Label();
         mainBox = new HBox();
@@ -31,11 +37,51 @@ public class ViewNote extends AnchorPane {
         noteTA = new TextArea();
         promptLbl = new Label();
         promptBox = new HBox();
+        highlightBox = new HBox();
+        redBox = new HBox();
+        blueBox = new HBox();
+        yellowBox = new HBox();
+        greenBox = new HBox();
+        // img = new Image("imgs/highlighter.png");
+        imageView = new ImageView(img);
+        red = new Label();
+        yellow = new Label();
+        green = new Label();
+        blue = new Label();
 
         // welcome = new Label("VIEW PAGE");
         defaultMessage();
         getChildren().addAll(mainContainer, bottom());
 
+    }
+
+    private void highlighters() {
+        imageView.setFitHeight(30);
+        blue.setGraphic(imageView);
+        blue.setTextFill(Color.LIGHTBLUE);
+        blueBox.getChildren().add(blue);
+        blueBox.setOnMouseClicked(e -> {
+            noteTA.getSelectedText();
+        });
+        red.setGraphic(imageView);
+        red.setTextFill(Color.RED);
+        redBox.getChildren().add(red);
+        redBox.setOnMouseClicked(e -> {
+
+        });
+        yellow.setGraphic(imageView);
+        yellow.setTextFill(Color.YELLOW);
+        yellowBox.getChildren().add(yellow);
+        yellowBox.setOnMouseClicked(e -> {
+
+        });
+        green.setGraphic(imageView);
+        green.setTextFill(Color.GREEN);
+        greenBox.getChildren().add(green);
+        greenBox.setOnMouseClicked(e -> {
+
+        });
+        highlightBox.getChildren().addAll(blueBox, redBox, yellowBox, greenBox);
     }
 
     private void mainContainer() {
@@ -52,6 +98,7 @@ public class ViewNote extends AnchorPane {
         defaultLbl.setText("You have no Notes!");
         defaultLbl.setStyle(
                 "-fx-font-size: 40px; -fx-font-family: monospace; -fx-text-fill: gray;");
+
         defaultBox.getChildren().add(defaultLbl);
         defaultBox.setAlignment(Pos.CENTER);
         mainContainer.getChildren().add(defaultBox);
@@ -64,9 +111,10 @@ public class ViewNote extends AnchorPane {
 
     public void noteSelectPrompt() {
         reset();
-        promptLbl.setText("Select a note!");
+        promptLbl.setText("Select a note to Edit!");
         promptLbl.setStyle(
                 "-fx-font-size: 40px; -fx-font-family: monospace; -fx-text-fill: gray;");
+
         promptBox.getChildren().add(promptLbl);
         promptBox.setAlignment(Pos.CENTER);
         mainContainer.getChildren().add(promptBox);
@@ -77,21 +125,17 @@ public class ViewNote extends AnchorPane {
         mainContainer();
     }
 
-    public void noteSpecifier(String key, CreateNote cNote) {
-        this.cNote = cNote;
-        addNoteToView(key, cNote.getHashMap().get(key));
-    }
-
-    private void addNoteToView(String key, String note) {
+    public void addNoteToView(String key, String note, CreateNote cNote) {
         reset();
         this.currKey = key;
         this.currNote = note;
+        this.cNote = cNote;
         titleLbl.setText(key);
         titleLbl.setStyle("-fx-font-size: 20px; -fx-text-fill: gray;");
         mainBox.setAlignment(Pos.CENTER_LEFT);
-        mainBox.getChildren().add(titleLbl);
-        mainBox.setStyle("");
-        noteTA.setEditable(false);
+        mainBox.getChildren().addAll(titleLbl);
+        mainBox.setStyle("-fx-background-color: red;");
+        noteTA.setEditable(true);
         noteTA.setText(note);
         noteTA.setWrapText(true);
         noteTA.setStyle(" -fx-focus-color: transparent; -fx-control-inner-background: #FFEFD4; -fx-border: gone;");
@@ -99,7 +143,7 @@ public class ViewNote extends AnchorPane {
         mainContainer.getChildren().addAll(mainBox, noteTA);
         AnchorPane.setTopAnchor(mainBox, 0.0);
         AnchorPane.setBottomAnchor(mainBox, 900.0);
-        AnchorPane.setRightAnchor(mainBox, 10.0);
+        AnchorPane.setRightAnchor(mainBox, 300.0);
         AnchorPane.setLeftAnchor(mainBox, 10.0);
 
         AnchorPane.setTopAnchor(noteTA, 100.0);
@@ -130,35 +174,34 @@ public class ViewNote extends AnchorPane {
         setRightAnchor(bottomContainer, 0.0);
         setLeftAnchor(bottomContainer, 0.0);
 
-        editButton.setMinSize(100, 30);
-        editButton.setText("Edit");
+        saveButton.setMinSize(100, 30);
+        saveButton.setText("Save");
         cancelButton.setMinSize(100, 30);
         cancelButton.setText("Cancel");
-        deleteNoteButton.setMinSize(100, 30);
-        deleteNoteButton.setText("Delete");
 
-        AnchorPane.setTopAnchor(editButton, 20.0);
-        AnchorPane.setBottomAnchor(editButton, 400.0);
-        AnchorPane.setLeftAnchor(editButton, 75.0);
+        AnchorPane.setTopAnchor(saveButton, 20.0);
+        AnchorPane.setBottomAnchor(saveButton, 400.0);
+        AnchorPane.setLeftAnchor(saveButton, 100.0);
 
         AnchorPane.setTopAnchor(cancelButton, 20.0);
         AnchorPane.setBottomAnchor(cancelButton, 400.0);
-        AnchorPane.setLeftAnchor(cancelButton, editButton.getMinWidth() + cancelButton.getMinWidth() + 75 + 40);
+        AnchorPane.setLeftAnchor(cancelButton, saveButton.getMinWidth() + cancelButton.getMinWidth() + 50 + 40);
 
-        AnchorPane.setTopAnchor(deleteNoteButton, 20.0);
-        AnchorPane.setBottomAnchor(deleteNoteButton, 400.0);
-        AnchorPane.setLeftAnchor(deleteNoteButton, editButton.getMinWidth() + 75 + 20);
-        bottomContainer.getChildren().add(cancelButton);
-        editButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
-        editButton.setOnMouseEntered(e -> {
-            editButton.setStyle("-fx-background-color: #FFEFD4;-fx-text-fill: #3D5453;");
+        bottomContainer.getChildren().addAll(saveButton, cancelButton);
+        saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
+        saveButton.setOnMouseEntered(e -> {
+            saveButton.setStyle("-fx-background-color: #FFEFD4;-fx-text-fill: #3D5453;");
         });
-        editButton.setOnMouseExited(e -> {
-            editButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
+        saveButton.setOnMouseExited(e -> {
+            saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
         });
-        editButton.setOnMouseClicked(e -> {
-            System.out.println("EDIT NOTE");
-            NotedFrame.getMainPane().getState(3);
+        saveButton.setOnMouseClicked(e -> {
+            editNote = new SaveEdittedNote(this.currKey, this.getNoteText(), this.cNote);
+            if (editNote.isSuccessful()) {
+                NotedFrame.getMainPane().getState(2);
+            }
+            System.out.println("EDITNOTE");
+
         });
         cancelButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
         cancelButton.setOnMouseEntered(e -> {
@@ -170,16 +213,7 @@ public class ViewNote extends AnchorPane {
         cancelButton.setOnMouseClicked(e -> {
             NotedFrame.getMainPane().getState(0);
         });
-        deleteNoteButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
-        deleteNoteButton.setOnMouseEntered(e -> {
-            deleteNoteButton.setStyle("-fx-background-color: #FFEFD4;-fx-text-fill: #3D5453;");
-        });
-        deleteNoteButton.setOnMouseExited(e -> {
-            deleteNoteButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
-        });
-        deleteNoteButton.setOnMouseClicked(e -> {
-            System.out.println("DELETE NOTE");
-        });
+
         return bottomContainer;
 
     }
@@ -192,11 +226,7 @@ public class ViewNote extends AnchorPane {
         return this.currNote;
     }
 
-    public CreateNote getCreateNote() {
-        return this.cNote;
-    }
-
-    public void addEditAndDelete() {
-        bottomContainer.getChildren().addAll(editButton, deleteNoteButton);
+    public String getNoteText() {
+        return noteTA.getText();
     }
 }

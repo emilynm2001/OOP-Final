@@ -46,6 +46,12 @@ public class mainPane extends BorderPane {
                 break;
 
             }
+            case 3: {
+                content.setState("EditNote_View");
+                setCenter(content.getContent());
+                break;
+
+            }
             default: {
                 content.setState("HomePage_View");
                 setCenter(content.getContent());

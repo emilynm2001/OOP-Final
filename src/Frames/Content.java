@@ -2,6 +2,7 @@ package Frames;
 
 import javafx.scene.layout.AnchorPane;
 import Views.AddNote;
+import Views.EditNote;
 import Views.HomePage;
 import Views.ViewNote;
 
@@ -9,6 +10,7 @@ public class Content {
     private AddNote addNoteView;
     private HomePage homeView;
     private ViewNote viewNoteView;
+    private EditNote editNoteView;
     public String name;
     private SideMenu sMenu;
     // String state = "List_View";
@@ -19,6 +21,7 @@ public class Content {
         addNoteView = new AddNote();
         homeView = new HomePage();
         viewNoteView = new ViewNote();
+        editNoteView = new EditNote();
     }
 
     // void setStyles() {
@@ -52,6 +55,7 @@ public class Content {
                 } else {
                     viewNoteView.noteSpecifier(this.sMenu.getHashKey(), addNoteView.getCreateNote());
                     System.out.println("Viewing Note titled: " + this.sMenu.getHashKey());
+                    viewNoteView.addEditAndDelete();
                 }
             }
             return viewNoteView;
@@ -59,6 +63,12 @@ public class Content {
         if (state.equals("HomePage_View")) {
             return homeView;
         }
+        if (state.equals("EditNote_View")) {
+            editNoteView.addNoteToView(viewNoteView.getKey(), viewNoteView.getNote(),
+                    viewNoteView.getCreateNote());
+            return editNoteView;
+        }
+
         return homeView;
     }
 

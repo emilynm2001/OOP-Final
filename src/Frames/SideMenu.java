@@ -5,27 +5,36 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class SideMenu extends VBox {
+public class SideMenu extends ScrollPane {
     Button newNoteButton;
     ArrayList<String> names = new ArrayList<>();
     ArrayList<HBox> hBoxArray = new ArrayList<>();
     String hashKey = "";
     HBox defaultBox = new HBox();
     Label defaultLbl = new Label();
+    VBox sidemenuBox = new VBox();
 
     public SideMenu() {
         setStyles();
-        getChildren().addAll(topLabel(), getSeparator("h"));
+        this.sidemenuBox.getChildren().addAll(topLabel(), getSeparator("h"));
         addDefault();
+        getChildren().add(sidemenuBox);
+        setContent(this.sidemenuBox);
+        setPrefSize(200, 720);
     }
 
     public void setStyles() {
-        setStyle("-fx-background-color: #B9EDED");
-        setMinSize(200, 600);
+        this.sidemenuBox.setStyle("-fx-background-color: #B9EDED");
+        this.sidemenuBox.setMinSize(200, 710);
+        setFitToWidth(true);
+        setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        setPannable(true);
     }
 
     private void addDefault() {
@@ -35,7 +44,8 @@ public class SideMenu extends VBox {
 
         defaultBox.getChildren().add(defaultLbl);
         defaultBox.setAlignment(Pos.CENTER);
-        getChildren().add(defaultBox);
+        this.sidemenuBox.getChildren().add(defaultBox);
+
     }
 
     private HBox topLabel() {
@@ -71,7 +81,7 @@ public class SideMenu extends VBox {
         for (int i = 0; i < noteNames.size(); i++) {
             if (noteNames.size() > this.names.size()) {
                 if (i == (noteNames.size() - 1)) {
-                    getChildren().remove(defaultBox);
+                    this.sidemenuBox.getChildren().remove(defaultBox);
                     this.names.add(noteNames.get(i));
                     System.out.print(noteNames.get(i));
                     String fn = noteNames.get(i);
@@ -85,7 +95,7 @@ public class SideMenu extends VBox {
                             "-fx-border-outsets: 5px; -fx-background-color: #A5A1ED; -fx-border-width: 4; -fx-border-color: #B9EDED");
                     filename.setText(fn + ".txt");
                     noteBox.getChildren().add(filename);
-                    getChildren().addAll(noteBox, getSeparator("h"));
+                    this.sidemenuBox.getChildren().addAll(noteBox, getSeparator("h"));
                     sethBoxArray(noteBox);
                     noteBox.setOnMouseEntered(e -> {
                         noteBox.setStyle(
@@ -108,6 +118,11 @@ public class SideMenu extends VBox {
             }
         }
     }
+
+    // private void addScrollBar() {
+    // scrollBar.setOrientation(Orientation.VERTICAL);
+    // getChildren().add(scrollBar);
+    // }
 
     public void setHashKey(String hashKey) {
         this.hashKey = hashKey;
