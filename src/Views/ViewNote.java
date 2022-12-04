@@ -2,6 +2,7 @@ package Views;
 
 import Frames.NotedFrame;
 import NoteCreation.CreateNote;
+import NoteCreation.DeleteNote;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,6 +18,7 @@ public class ViewNote extends AnchorPane {
     private TextArea noteTA;
     private String currKey, currNote;
     private CreateNote cNote;
+    private DeleteNote deleteNote;
 
     public ViewNote() {
         bottomContainer = new AnchorPane();
@@ -157,7 +159,6 @@ public class ViewNote extends AnchorPane {
             editButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
         });
         editButton.setOnMouseClicked(e -> {
-            System.out.println("EDIT NOTE");
             NotedFrame.getMainPane().getState(3);
         });
         cancelButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
@@ -179,6 +180,9 @@ public class ViewNote extends AnchorPane {
         });
         deleteNoteButton.setOnMouseClicked(e -> {
             System.out.println("DELETE NOTE");
+            deleteNote = new DeleteNote(currKey, currNote, cNote);
+            NotedFrame.getMainPane().getState(0);
+            NotedFrame.getMainPane().getSideMenu().removeHbox(NotedFrame.getMainPane().getNoteNames(), currKey);
         });
         return bottomContainer;
 
@@ -197,6 +201,8 @@ public class ViewNote extends AnchorPane {
     }
 
     public void addEditAndDelete() {
+        bottomContainer.getChildren().remove(editButton);
+        bottomContainer.getChildren().remove(deleteNoteButton);
         bottomContainer.getChildren().addAll(editButton, deleteNoteButton);
     }
 }

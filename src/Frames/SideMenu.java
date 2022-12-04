@@ -14,6 +14,7 @@ public class SideMenu extends ScrollPane {
     Button newNoteButton;
     ArrayList<String> names = new ArrayList<>();
     ArrayList<HBox> hBoxArray = new ArrayList<>();
+    ArrayList<Separator> separators = new ArrayList<>();
     String hashKey = "";
     HBox defaultBox = new HBox();
     Label defaultLbl = new Label();
@@ -21,7 +22,7 @@ public class SideMenu extends ScrollPane {
 
     public SideMenu() {
         setStyles();
-        this.sidemenuBox.getChildren().addAll(topLabel(), getSeparator("h"));
+        this.sidemenuBox.getChildren().addAll(topLabel());
         addDefault();
         getChildren().add(sidemenuBox);
         setContent(this.sidemenuBox);
@@ -44,7 +45,7 @@ public class SideMenu extends ScrollPane {
 
         defaultBox.getChildren().add(defaultLbl);
         defaultBox.setAlignment(Pos.CENTER);
-        this.sidemenuBox.getChildren().add(defaultBox);
+        this.sidemenuBox.getChildren().addAll(getSeparator("h"), defaultBox);
 
     }
 
@@ -87,6 +88,7 @@ public class SideMenu extends ScrollPane {
                     String fn = noteNames.get(i);
                     HBox noteBox = new HBox();
                     Label filename = new Label();
+                    Separator hboxSeparator = new Separator();
                     // noteBox.setStyle("-fx-background-color: #8AFD8A; -fx-border-color: white;");
                     filename.setStyle(
                             "-fx-font-size: 15px;-fx-font-family: monospace; -fx-padding: 5; -fx-text-fill: white;");
@@ -95,8 +97,11 @@ public class SideMenu extends ScrollPane {
                             "-fx-border-outsets: 5px; -fx-background-color: #A5A1ED; -fx-border-width: 4; -fx-border-color: #B9EDED");
                     filename.setText(fn + ".txt");
                     noteBox.getChildren().add(filename);
-                    this.sidemenuBox.getChildren().addAll(noteBox, getSeparator("h"));
+                    hboxSeparator = getSeparator("h");
+                    this.sidemenuBox.getChildren().addAll(noteBox, hboxSeparator);
                     sethBoxArray(noteBox);
+                    separators.add(i, hboxSeparator);
+
                     noteBox.setOnMouseEntered(e -> {
                         noteBox.setStyle(
                                 "-fx-background-color: #6865A1; -fx-border-width: 4; -fx-border-color: #B9EDED");
@@ -119,10 +124,20 @@ public class SideMenu extends ScrollPane {
         }
     }
 
-    // private void addScrollBar() {
-    // scrollBar.setOrientation(Orientation.VERTICAL);
-    // getChildren().add(scrollBar);
-    // }
+    public void removeHbox(ArrayList<String> noteNames, String filename) {
+        for (int i = 0; i < noteNames.size(); i++) {
+            if (noteNames.get(i).equals(filename)) {
+                noteNames.remove(i);
+                names.remove(i);
+                this.sidemenuBox.getChildren().remove(hBoxArray.get(i));
+                this.sidemenuBox.getChildren().remove(separators.get(i));
+                if (hBoxArray.size() == 1)
+                    this.sidemenuBox.getChildren().add(defaultBox);
+                hBoxArray.remove(i);
+            }
+
+        }
+    }
 
     public void setHashKey(String hashKey) {
         this.hashKey = hashKey;

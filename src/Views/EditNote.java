@@ -7,22 +7,17 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 
 public class EditNote extends AnchorPane {
     private AnchorPane mainContainer, bottomContainer;
-    private HBox mainBox, promptBox, defaultBox, highlightBox, yellowBox, blueBox, redBox, greenBox;
+    private HBox mainBox, promptBox, defaultBox;
     private Button saveButton, cancelButton;
-    private Label defaultLbl, titleLbl, promptLbl, yellow, blue, red, green;
+    private Label defaultLbl, titleLbl, promptLbl;
     private TextArea noteTA;
     private SaveEdittedNote editNote;
     private String currKey, currNote;
-    private Image img;
-    private ImageView imageView;
     private CreateNote cNote;
 
     public EditNote() {
@@ -37,51 +32,11 @@ public class EditNote extends AnchorPane {
         noteTA = new TextArea();
         promptLbl = new Label();
         promptBox = new HBox();
-        highlightBox = new HBox();
-        redBox = new HBox();
-        blueBox = new HBox();
-        yellowBox = new HBox();
-        greenBox = new HBox();
-        // img = new Image("imgs/highlighter.png");
-        imageView = new ImageView(img);
-        red = new Label();
-        yellow = new Label();
-        green = new Label();
-        blue = new Label();
 
         // welcome = new Label("VIEW PAGE");
         defaultMessage();
         getChildren().addAll(mainContainer, bottom());
 
-    }
-
-    private void highlighters() {
-        imageView.setFitHeight(30);
-        blue.setGraphic(imageView);
-        blue.setTextFill(Color.LIGHTBLUE);
-        blueBox.getChildren().add(blue);
-        blueBox.setOnMouseClicked(e -> {
-            noteTA.getSelectedText();
-        });
-        red.setGraphic(imageView);
-        red.setTextFill(Color.RED);
-        redBox.getChildren().add(red);
-        redBox.setOnMouseClicked(e -> {
-
-        });
-        yellow.setGraphic(imageView);
-        yellow.setTextFill(Color.YELLOW);
-        yellowBox.getChildren().add(yellow);
-        yellowBox.setOnMouseClicked(e -> {
-
-        });
-        green.setGraphic(imageView);
-        green.setTextFill(Color.GREEN);
-        greenBox.getChildren().add(green);
-        greenBox.setOnMouseClicked(e -> {
-
-        });
-        highlightBox.getChildren().addAll(blueBox, redBox, yellowBox, greenBox);
     }
 
     private void mainContainer() {

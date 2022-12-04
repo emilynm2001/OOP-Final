@@ -1,5 +1,6 @@
 package Frames;
 
+import java.util.ArrayList;
 import javafx.scene.layout.BorderPane;
 
 public class mainPane extends BorderPane {
@@ -69,5 +70,9 @@ public class mainPane extends BorderPane {
         setCenter(content.getContent());
         this.sideMenu.newNoteButton.setVisible(true);
 
+    }
+
+    public ArrayList<String> getNoteNames() {
+        return content.getAddNote().getNoteNames();
     }
 }
