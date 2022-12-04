@@ -89,7 +89,7 @@ public class EditNote extends AnchorPane {
         titleLbl.setStyle("-fx-font-size: 20px; -fx-text-fill: gray;");
         mainBox.setAlignment(Pos.CENTER_LEFT);
         mainBox.getChildren().addAll(titleLbl);
-        mainBox.setStyle("-fx-background-color: red;");
+        mainBox.setStyle("");
         noteTA.setEditable(true);
         noteTA.setText(note);
         noteTA.setWrapText(true);

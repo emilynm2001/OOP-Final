@@ -85,7 +85,6 @@ public class AddNote extends AnchorPane {
             saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
         });
         saveButton.setOnMouseClicked(e -> {
-            if (!this.getFileName().equals("")) {
                 if (!newNote.fileExists) {
                     NotedFrame.getMainPane().getState(0);
                 } else {
@@ -94,12 +93,6 @@ public class AddNote extends AnchorPane {
                             ButtonType.OK);
                     alert.showAndWait();
                 }
-            } else {
-                Alert alert = new Alert(AlertType.ERROR,
-                        "File name is Empty!",
-                        ButtonType.OK);
-                alert.showAndWait();
-            }
         });
 
         cancelButton.setMinSize(100, 30);
