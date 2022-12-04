@@ -88,7 +88,9 @@ public class AddNote extends AnchorPane {
             if (!newNote.fileExists) {
                 NotedFrame.getMainPane().getState(0);
             } else {
-                Alert alert = new Alert(AlertType.CONFIRMATION, "Cannot create new note with already existing title. Please select a new note name.", ButtonType.OK);
+                Alert alert = new Alert(AlertType.ERROR,
+                        "File name already exists!",
+                        ButtonType.OK);
                 alert.showAndWait();
             }
         });
