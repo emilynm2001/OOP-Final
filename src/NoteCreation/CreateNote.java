@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 public class CreateNote {
     public String NoteName;
+    public boolean fileExists;
     private boolean success;
     final static HashMap<String, String> notes = new HashMap<>();
 
@@ -46,6 +47,7 @@ public class CreateNote {
                 }
             } else {
                 System.out.println("File already exists.");
+                fileExists = true;
                 this.success = false;
 
             }

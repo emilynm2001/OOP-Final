@@ -82,7 +82,9 @@ public class AddNote extends AnchorPane {
             saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
         });
         saveButton.setOnMouseClicked(e -> {
-            NotedFrame.getMainPane().getState(0);
+            if (!newNote.fileExists) {
+                NotedFrame.getMainPane().getState(0);
+            }
         });
 
         cancelButton.setMinSize(100, 30);
@@ -103,6 +105,10 @@ public class AddNote extends AnchorPane {
         cancelButton.setOnMouseReleased(e -> {
             NotedFrame.getMainPane().getState(0);
         });
+    }
+
+    public boolean containsFile() {
+        return NoteNames.contains(this.getFileName());
     }
 
     public void onClick() {
