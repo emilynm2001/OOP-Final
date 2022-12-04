@@ -5,10 +5,13 @@ import java.util.ArrayList;
 
 import Frames.NotedFrame;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 // import javafx.scene.layout.HBox;
 // import Frames.*;
@@ -82,7 +85,12 @@ public class AddNote extends AnchorPane {
             saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
         });
         saveButton.setOnMouseClicked(e -> {
-            NotedFrame.getMainPane().getState(0);
+            if (!newNote.fileExists) {
+                NotedFrame.getMainPane().getState(0);
+            } else {
+                Alert alert = new Alert(AlertType.CONFIRMATION, "Cannot create new note with already existing title. Please select a new note name.", ButtonType.OK);
+                alert.showAndWait();
+            }
         });
 
         cancelButton.setMinSize(100, 30);
@@ -103,6 +111,10 @@ public class AddNote extends AnchorPane {
         cancelButton.setOnMouseReleased(e -> {
             NotedFrame.getMainPane().getState(0);
         });
+    }
+
+    public boolean containsFile() {
+        return NoteNames.contains(this.getFileName());
     }
 
     public void onClick() {
