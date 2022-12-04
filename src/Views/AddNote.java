@@ -85,11 +85,18 @@ public class AddNote extends AnchorPane {
             saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
         });
         saveButton.setOnMouseClicked(e -> {
-            if (!newNote.fileExists) {
-                NotedFrame.getMainPane().getState(0);
+            if (!this.getFileName().equals("")) {
+                if (!newNote.fileExists) {
+                    NotedFrame.getMainPane().getState(0);
+                } else {
+                    Alert alert = new Alert(AlertType.ERROR,
+                            "File name already exists!",
+                            ButtonType.OK);
+                    alert.showAndWait();
+                }
             } else {
                 Alert alert = new Alert(AlertType.ERROR,
-                        "File name already exists!",
+                        "File name is Empty!",
                         ButtonType.OK);
                 alert.showAndWait();
             }
