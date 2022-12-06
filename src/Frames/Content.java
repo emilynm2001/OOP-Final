@@ -13,9 +13,7 @@ public class Content {
     private EditNote editNoteView;
     public String name;
     private SideMenu sMenu;
-    // String state = "List_View";
     public String state = "Home_View";
-    // public IntegerProperty stateKey = new SimpleIntegerProperty(0);
 
     public Content() {
         addNoteView = new AddNote();
@@ -24,37 +22,21 @@ public class Content {
         editNoteView = new EditNote();
     }
 
-    // void setStyles() {
-    // setStyle("-fx-background-color: lightblue; -fx-border-color: black;");
-    // }
-
     public AnchorPane getContent() {
-        System.out.println("this is the state: " + state);
         if (state.equals("AddNote_View")) {
             addNoteView.getSaveButton().setOnMouseReleased(event -> {
-                // CreateNote newNote = new CreateNote(addNoteView.getFileName(),
                 addNoteView.onClick();
-                // getNoteNames().add(addNoteView.getFileName());
                 this.sMenu.addHBox(addNoteView.getNoteNames());
-                // setName(addNoteView.getFileName());
-                System.out.println("CONTENT");
                 addNoteView.clearTxtFields();
             });
-            // addNoteView.getCancelButton().setOnMouseReleased(event -> {
-            // this.state = "HomePage_View";
-            // getContent();
-            // });
-
             return addNoteView;
         }
         if (state.equals("ViewNote_View")) {
             if (!(addNoteView.getNoteNames().isEmpty())) {
-                System.out.println("**********************" + this.sMenu.getHashKey().equals(""));
                 if (this.sMenu.getHashKey().equals("")) {
                     viewNoteView.noteSelectPrompt();
                 } else {
                     viewNoteView.noteSpecifier(this.sMenu.getHashKey(), addNoteView.getCreateNote());
-                    System.out.println("Viewing Note titled: " + this.sMenu.getHashKey());
                     viewNoteView.addEditAndDelete();
                 }
             }
@@ -68,19 +50,11 @@ public class Content {
                     viewNoteView.getCreateNote());
             return editNoteView;
         }
-
         return homeView;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getName() {
         return this.name;
-    }
-
-    void addStyles() {
     }
 
     public void setState(String state) {

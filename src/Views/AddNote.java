@@ -1,9 +1,9 @@
 package Views;
 
-import NoteCreation.*;
 import java.util.ArrayList;
 
 import Frames.NotedFrame;
+import NoteHandler.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -13,15 +13,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
-// import javafx.scene.layout.HBox;
-// import Frames.*;
 
 public class AddNote extends AnchorPane {
     AnchorPane enterFileNameAP = new AnchorPane();
     final TextField fileNameTF = new TextField();
     Label titlelbl = new Label();
     private CreateNote newNote;
-    // NotesHash hash = new NotesHash();
     public static ArrayList<String> NoteNames = new ArrayList<>();
 
     AnchorPane noteTextAP = new AnchorPane();
@@ -44,7 +41,6 @@ public class AddNote extends AnchorPane {
                 "-fx-font-size: 20px; -fx-text-fill: #FFEFD4; -fx-font-weight: bold; -fx-font-family: monospace");
         fileNameTF.setAlignment(Pos.CENTER_LEFT);
         fileNameTF.setStyle(" -fx-focus-color: gray; -fx-background-color: #FFEFD4; -fx-border: gone; ");
-
         AnchorPane.setTopAnchor(titlelbl, 100 - (100 / 3) * 2.0);
         AnchorPane.setLeftAnchor(titlelbl, 10.0);
         AnchorPane.setTopAnchor(fileNameTF, 100 - (100.0 / 3));
@@ -65,7 +61,6 @@ public class AddNote extends AnchorPane {
         setBottomAnchor(noteTextAP, 0.0);
         setRightAnchor(noteTextAP, 0.0);
         setLeftAnchor(noteTextAP, 0.0);
-        // noteTF.setAlignment(Pos.TOP_LEFT);
         noteTF.setWrapText(true);
         noteTF.setPromptText("Start Note...");
         noteTF.setStyle(" -fx-focus-color: gray; -fx-control-inner-background: #FFEFD4;  -fx-border: gone; ");
@@ -73,28 +68,27 @@ public class AddNote extends AnchorPane {
         AnchorPane.setRightAnchor(noteTF, 10.0);
         AnchorPane.setLeftAnchor(noteTF, 10.0);
         AnchorPane.setBottomAnchor(noteTF, 100.0);
-
         saveButton.setMinSize(100, 30);
         saveButton.setText("Save");
         saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
-
         saveButton.setOnMouseEntered(e -> {
             saveButton.setStyle("-fx-background-color: #FFEFD4; -fx-text-fill: #3D5453;");
         });
         saveButton.setOnMouseExited(e -> {
             saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
         });
+        // JORGE
         saveButton.setOnMouseClicked(e -> {
-                if (!newNote.fileExists) {
-                    NotedFrame.getMainPane().getState(0);
-                } else {
-                    Alert alert = new Alert(AlertType.ERROR,
-                            "File name already exists!",
-                            ButtonType.OK);
-                    alert.showAndWait();
-                }
+            if (!newNote.fileExists) {
+                NotedFrame.getMainPane().getState(0);
+            } else {
+                Alert alert = new Alert(AlertType.ERROR,
+                        "File name already exists!",
+                        ButtonType.OK);
+                alert.showAndWait();
+            }
         });
-
+        // JORGE
         cancelButton.setMinSize(100, 30);
         cancelButton.setText("Cancel");
         cancelButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
@@ -104,10 +98,8 @@ public class AddNote extends AnchorPane {
         cancelButton.setOnMouseExited(e -> {
             cancelButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
         });
-
         AnchorPane.setTopAnchor(saveButton, 535.0);
         AnchorPane.setLeftAnchor(saveButton, 230.0);
-
         AnchorPane.setTopAnchor(cancelButton, 535.0);
         AnchorPane.setLeftAnchor(cancelButton, 370.0);
         cancelButton.setOnMouseReleased(e -> {
@@ -156,9 +148,4 @@ public class AddNote extends AnchorPane {
         fileNameTF.clear();
         noteTF.clear();
     }
-
-    public Button getCancelButton() {
-        return cancelButton;
-    }
-
 }

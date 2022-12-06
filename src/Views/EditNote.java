@@ -1,8 +1,8 @@
 package Views;
 
 import Frames.NotedFrame;
-import NoteCreation.CreateNote;
-import NoteCreation.SaveEdittedNote;
+import NoteHandler.CreateNote;
+import NoteHandler.SaveEditedNote;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,7 +16,7 @@ public class EditNote extends AnchorPane {
     private Button saveButton, cancelButton;
     private Label defaultLbl, titleLbl, promptLbl;
     private TextArea noteTA;
-    private SaveEdittedNote editNote;
+    private SaveEditedNote editNote;
     private String currKey, currNote;
     private CreateNote cNote;
 
@@ -33,7 +33,6 @@ public class EditNote extends AnchorPane {
         promptLbl = new Label();
         promptBox = new HBox();
 
-        // welcome = new Label("VIEW PAGE");
         defaultMessage();
         getChildren().addAll(mainContainer, bottom());
 
@@ -49,11 +48,9 @@ public class EditNote extends AnchorPane {
 
     private void defaultMessage() {
         reset();
-
         defaultLbl.setText("You have no Notes!");
         defaultLbl.setStyle(
                 "-fx-font-size: 40px; -fx-font-family: monospace; -fx-text-fill: gray;");
-
         defaultBox.getChildren().add(defaultLbl);
         defaultBox.setAlignment(Pos.CENTER);
         mainContainer.getChildren().add(defaultBox);
@@ -100,12 +97,10 @@ public class EditNote extends AnchorPane {
         AnchorPane.setBottomAnchor(mainBox, 900.0);
         AnchorPane.setRightAnchor(mainBox, 300.0);
         AnchorPane.setLeftAnchor(mainBox, 10.0);
-
         AnchorPane.setTopAnchor(noteTA, 100.0);
         AnchorPane.setBottomAnchor(noteTA, 500.0);
         AnchorPane.setRightAnchor(noteTA, 10.0);
         AnchorPane.setLeftAnchor(noteTA, 10.0);
-
         mainContainer();
     }
 
@@ -151,7 +146,7 @@ public class EditNote extends AnchorPane {
             saveButton.setStyle("-fx-background-color: #EED7AE;-fx-text-fill: #3D5453;");
         });
         saveButton.setOnMouseClicked(e -> {
-            editNote = new SaveEdittedNote(this.currKey, this.getNoteText(), this.cNote);
+            editNote = new SaveEditedNote(this.currKey, this.getNoteText(), this.cNote);
             if (editNote.isSuccessful()) {
                 NotedFrame.getMainPane().getState(2);
             }

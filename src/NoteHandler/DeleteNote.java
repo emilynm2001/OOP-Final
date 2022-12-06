@@ -1,16 +1,13 @@
-package NoteCreation;
+package NoteHandler;
 
-import java.io.File; // Import the File class
-// import Frames.*;
-// import Views.AddNote;
-// import javafx.scene.control.TextField;
+import java.io.File;
 
 public class DeleteNote {
     public String NoteName;
     private boolean success;
 
-    public DeleteNote(String fn, String txt, CreateNote cNote) {
-        deleteFile(fn, txt);
+    public DeleteNote(String fn, CreateNote cNote) {
+        deleteFile(fn);
         cNote.getHashMap().remove(fn);
     }
 
@@ -18,10 +15,10 @@ public class DeleteNote {
         return success;
     }
 
-    void deleteFile(String fn, String txt) {
+    void deleteFile(String fn) {
         File myObj = new File(fn + ".txt");
         if (myObj.delete()) {
-            System.out.println("Deleted the file: " + myObj.getName());
+            this.success = true;
         } else {
             System.out.println("Failed to delete the file:  " + myObj.getName());
         }
@@ -34,12 +31,4 @@ public class DeleteNote {
     public String getNote() {
         return this.NoteName;
     }
-
-    public void addText() {
-
-    }
-
-    // public TextField getfilename() {
-    // return fileName;
-    // }
 }

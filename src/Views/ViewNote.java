@@ -1,8 +1,8 @@
 package Views;
 
 import Frames.NotedFrame;
-import NoteCreation.CreateNote;
-import NoteCreation.DeleteNote;
+import NoteHandler.CreateNote;
+import NoteHandler.DeleteNote;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -180,7 +180,7 @@ public class ViewNote extends AnchorPane {
         });
         deleteNoteButton.setOnMouseClicked(e -> {
             System.out.println("DELETE NOTE");
-            deleteNote = new DeleteNote(currKey, currNote, cNote);
+            deleteNote = new DeleteNote(currKey, cNote);
             NotedFrame.getMainPane().getState(0);
             NotedFrame.getMainPane().getSideMenu().removeHbox(NotedFrame.getMainPane().getNoteNames(), currKey);
         });

@@ -1,4 +1,4 @@
-package NoteCreation;
+package NoteHandler;
 
 import java.io.File; // Import the File class
 import java.io.FileWriter;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class CreateNote {
     public String NoteName;
-    public boolean fileExists;
+    public boolean fileExists; // JORGE
     private boolean success;
     final static HashMap<String, String> notes = new HashMap<>();
 
@@ -47,7 +47,7 @@ public class CreateNote {
                 }
             } else {
                 System.out.println("File already exists.");
-                fileExists = true;
+                fileExists = true; // JORGE
                 this.success = false;
 
             }
@@ -63,15 +63,4 @@ public class CreateNote {
         this.NoteName = note;
     }
 
-    public String getNote() {
-        return this.NoteName;
-    }
-
-    public void addText() {
-
-    }
-
-    // public TextField getfilename() {
-    // return fileName;
-    // }
 }
